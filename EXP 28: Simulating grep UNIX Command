@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    FILE *fp;
+    char filename[20], line[100], keyword[20];
+
+    printf("Enter filename: "); scanf("%s", filename);
+    printf("Enter keyword to search: "); scanf("%s", keyword);
+
+    fp = fopen(filename, "r");
+    if(fp){
+        printf("Lines containing '%s':\n", keyword);
+        while(fgets(line, sizeof(line), fp)){
+            if(strstr(line, keyword)) printf("%s", line);
+        }
+        fclose(fp);
+    }
+    else printf("File not found\n");
+    return 0;
+}
