@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Employee {
+    int id;
+    char name[20];
+    float salary;
+};
+
+int main() {
+    FILE *fp;
+    struct Employee emp;
+    int choice, id;
+
+    fp = fopen("employee.dat", "rb+");
+    if (!fp) fp = fopen("employee.dat", "wb+");
+
+    while (1) {
+        printf("\n1. Add Employee\n2. Display Employee by ID\n3. Exit\nEnter choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            printf("Enter ID, Name, Salary: ");
+            scanf("%d %s %f", &emp.id, emp.name, &emp.salary);
+            fseek(fp, (emp.id - 1) * sizeof(emp), SEEK_SET);
+            fwrite(&emp, sizeof(emp), 1, fp);
+        } 
+        else if (choice == 2) {
+            printf("Enter Employee ID: ");
+            scanf("%d", &id);
+            fseek(fp, (id - 1) * sizeof(emp), SEEK_SET);
+            if (fread(&emp, sizeof(emp), 1, fp))
+                printf("ID: %d Name: %s Salary: %.2f\n", emp.id, emp.name, emp.salary);
+            else
+                printf("No record found!\n");
+        } 
+        else break;
+    }
+
+    fclose(fp);
+    return 0;
+}
