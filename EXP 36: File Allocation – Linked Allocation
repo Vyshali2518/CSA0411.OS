@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+int main(){
+    int n, start[10], size[10], blocks[10][10], i, j;
+    printf("Enter number of files: "); scanf("%d",&n);
+    for(i=0;i<n;i++){
+        printf("Enter size of file %d: ",i+1); scanf("%d",&size[i]);
+        printf("Enter blocks for file %d: ",i+1);
+        for(j=0;j<size[i];j++) scanf("%d",&blocks[i][j]);
+    }
+    printf("Linked Allocation Table:\nFile\tBlocks\n");
+    for(i=0;i<n;i++){
+        printf("F%d\t",i+1);
+        for(j=0;j<size[i];j++) printf("%d -> ",blocks[i][j]);
+        printf("NULL\n");
+    }
+    return 0;
+}
