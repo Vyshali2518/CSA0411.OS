@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+    int n, head, disk_size, i, j, total=0;
+    printf("Enter number of requests: "); scanf("%d",&n);
+    int req[n];
+    printf("Enter request sequence: ");
+    for(i=0;i<n;i++) scanf("%d",&req[i]);
+    printf("Enter initial head position: "); scanf("%d",&head);
+    printf("Enter disk size: "); scanf("%d",&disk_size);
+
+    int left[20], right[20], lcount=0, rcount=0;
+    for(i=0;i<n;i++){
+        if(req[i]<head) left[lcount++]=req[i];
+        else right[rcount++]=req[i];
+    }
+    right[rcount++]=disk_size-1; left[lcount++]=0;
+
+    // Sort
+    for(i=0;i<rcount-1;i++) for(j=i+1;j<rcount;j++) if(right[i]>right[j]) {int t=right[i]; right[i]=right[j]; right[j]=t;}
+    for(i=0;i<lcount-1;i++) for(j=i+1;j<lcount;j++) if(left[i]<left[j]) {int t=left[i]; left[i]=left[j]; left[j]=t;}
+
+    printf("Head movement: %d", head);
+    for(i=0;i<rcount;i++){
+        total+=abs(right[i]-head); head=right[i]; printf(" -> %d", head);
+    }
+    total+=abs(head-0); head=0; printf(" -> %d", head);
+    for(i=0;i<lcount;i++){
+        total+=abs(left[i]-head); head=left[i]; printf(" -> %d", head);
+    }
+    printf("\nTotal head movement: %d\n", total);
+    return 0;
+}
