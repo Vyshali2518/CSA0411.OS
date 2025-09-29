@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+int main(){
+    int n, i, size[10], indexBlock[10][10];
+    printf("Enter number of files: "); scanf("%d",&n);
+    for(i=0;i<n;i++){
+        printf("Enter size of file %d: ",i+1); scanf("%d",&size[i]);
+        printf("Enter data blocks for file %d: ",i+1);
+        for(int j=0;j<size[i];j++) scanf("%d",&indexBlock[i][j]);
+    }
+    printf("Index Allocation Table:\nFile\tIndex Block\n");
+    for(i=0;i<n;i++){
+        printf("F%d\t",i+1);
+        for(int j=0;j<size[i];j++) printf("%d ",indexBlock[i][j]);
+        printf("\n");
+    }
+    return 0;
+}
